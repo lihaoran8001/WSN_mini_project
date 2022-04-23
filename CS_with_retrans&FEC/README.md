@@ -1,5 +1,7 @@
 This document talks about how we design and implement the transmission control, including retransmission mechanism and forward error control.
 
+Retransmission is not fully implemented, need to cover senario 3 and 4.
+
 ### Retransmission Mechanism
 
 Due to interference or channel fading, bit errors could occur in the received packets. And we are operating directly on MAC layer, so retransmission is needed. This mechanism is based on Weize's work -- `unicast_client.c` and `unicast_server.c`. I will encapsulate some function on this base and provide seamless APIs for other guys who working on Application layer to use.
