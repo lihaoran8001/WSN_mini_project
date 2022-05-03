@@ -4,3 +4,4 @@
 *.sky
 *.csc
 build/ 
+.vscode/
