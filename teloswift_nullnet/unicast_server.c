@@ -41,7 +41,7 @@
 #include "contiki.h"
 #include "net/netstack.h"
 #include "net/nullnet/nullnet.h"
-
+#include "cc2420.h"
 #include <string.h>
 #include <stdio.h> /* For printf() */
 
@@ -71,8 +71,18 @@ void input_callback(const void *data, uint16_t len,
 {
     // data is payload, decrypt here
     // Todo:
-    LOG_INFO("Received response '%.*s'", len, (char *)data);
+    LOG_INFO("Received response, len: %d", len);
     LOG_INFO_("\n");
+    int i;
+    for (i = 0; i < len; i++)
+    {
+        printf("%x", (*(uint8_t *)data));
+        data++;
+        // temp++;
+    }
+    LOG_INFO_("\n");
+    // LOG_INFO("Received response '%.*s'", len, (char *)data);
+    // LOG_INFO_("\n");
 }
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(nullnet_example_process, ev, data)
