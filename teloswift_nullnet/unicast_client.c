@@ -11,6 +11,8 @@
 #include <string.h>
 #include <stdio.h> /* For printf() */
 
+#define CBC // if cbc is used, please uncomment this line
+
 /* Log configuration */
 
 #define LOG_MODULE "Client"
@@ -39,7 +41,7 @@ void input_callback(const void *data, uint16_t len,
   LOG_INFO("Received response '%s'", (char *)data);
   LOG_INFO_("\n");
 }
-
+#if defined(CBC)
 static void
 encrypt_cbc(uint8_t *in, uint8_t *key, uint8_t *iv, unsigned long size)
 {
@@ -56,6 +58,7 @@ encrypt_cbc(uint8_t *in, uint8_t *key, uint8_t *iv, unsigned long size)
     iv = in + j;
   }
 }
+#endif
 
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(nullnet_example_process, ev, data)
@@ -66,14 +69,19 @@ PROCESS_THREAD(nullnet_example_process, ev, data)
   //----------------------------init key, plaintext, iv
   uint8_t key[16];
   uint8_t plaintext[16];
+
+#if defined(CBC)
   uint8_t iv[16];
+#endif
 
   int i;
   for (i = 0; i < 16; i++)
   {
     key[i] = '2';
     plaintext[i] = '1';
+#if defined(CBC)
     iv[i] = '3';
+#endif
   }
   leds_init();
   leds_on(RED_BLUE);
@@ -89,8 +97,12 @@ PROCESS_THREAD(nullnet_example_process, ev, data)
   //------------------encrypt here and measure time-----------------------
 
   AES_128.set_key(key);
-  // AES_128.encrypt(plaintext); // ECB mode
+
+#if defined(CBC)
   encrypt_cbc(plaintext, key, iv, 16); // CBC mode
+#else
+  AES_128.encrypt(plaintext); // ECB mode
+#endif
 
   for (i = 0; i < 16; i++)
   {

@@ -1,8 +1,11 @@
 # TeloSwift Team 10
 
+chooes hardware or software encryption, please configure in 'project-conf.h'  
+chooes CBC or ECB mode, please modify 'unicast_client.c' line 14.  
+
 This demo achieve communication between two nodes(only two because of unicast) on Link layer, that is, the only things need to know is the Link layer address.
 
-## Client 
+## Client
 file: unicast_client.c
 Client needs to pre-know the link layer address of the server and encrypt and send the cipher text to server by `NETSTACK_NETWORK.output(&dest_addr);`
 
