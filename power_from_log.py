@@ -1,12 +1,12 @@
 INPUT_FILE = "power.testlog"
 
-# From TelosB datasheet
+# From TelosB and CC2420 datasheet 
 CURRENT_MA = {
     "CPU" : 1.8,
     "LPM" : 0.0051,
     "Deep LPM" : 0, # not used
     "Radio Rx" : 23,
-    "Radio Tx" : 21.8,
+    "Radio Tx" : 17.4, # P = 0 dBm | 17.4 mA, P = −5 | dBm 14 mA, P = -10 | 11 mA, P = -15 dBm | 9.9 mA,  P = -25 dBm | 8.5 mA
 }
 
 STATES = list(CURRENT_MA.keys())
