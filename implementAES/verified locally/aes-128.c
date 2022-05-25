@@ -1,5 +1,3 @@
-
-
 #include "aes-128.h"
 #include <string.h>
 #include <stdio.h>
